@@ -54,8 +54,8 @@ x-airflow-common:
   environment:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
-    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
-    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres-metadata/airflow
+    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres-metadata/airflow
     AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
     AIRFLOW__CORE__FERNET_KEY: ''
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
@@ -78,9 +78,9 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
     - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
-    - ${AIRFLOW_PROJ_DIR:-.}/dbt_modeling:/opt/airflow/dbt_modeling
-    - ${AIRFLOW_PROJ_DIR:-.}/keys/purwadika-key.json:/opt/airflow/keys/purwadika-key.json
-    - ${AIRFLOW_PROJ_DIR:-.}/dbt_profiles:/root/.dbt
+    # - ${AIRFLOW_PROJ_DIR:-.}/dbt_modeling:/opt/airflow/dbt_modeling
+    - ${AIRFLOW_PROJ_DIR:-.}/keys/purwadika-5a3c4e2b7b24.json:/opt/airflow/keys/purwadika-5a3c4e2b7b24.json
+    # - ${AIRFLOW_PROJ_DIR:-.}/dbt_profiles:/root/.dbt
     - ${AIRFLOW_PROJ_DIR:-.}/data:/opt/airflow/data
     - ${AIRFLOW_PROJ_DIR:-.}/scripts:/opt/airflow/scripts
   user: "${AIRFLOW_UID:-50000}:0"
@@ -88,24 +88,41 @@ x-airflow-common:
     &airflow-common-depends-on
     redis:
       condition: service_healthy
-    postgres:
+    postgres-metadata:
       condition: service_healthy
 
 services:
-  postgres:
+  postgres-metadata:
     image: postgres:13
     environment:
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow
       POSTGRES_DB: airflow
     volumes:
-      - postgres-db-volume:/var/lib/postgresql/data
+      - postgres-db-volume-ecommerce-metadata:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "airflow"]
       interval: 10s
       retries: 5
       start_period: 5s
     restart: always
+
+  postgres-data:
+    image: postgres:13
+    container_name: postgres-data
+    environment:
+      POSTGRES_USER: commerce-db
+      POSTGRES_PASSWORD: hafizh
+      POSTGRES_DB: commerce-db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-db-volume-ecommerce-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "commerce-db"]
+      interval: 10s
+      retries: 5
+      start_period: 5s
 
   redis:
     # Redis is limited to 7.2-bookworm due to licencing change
@@ -139,7 +156,7 @@ services:
         condition: service_completed_successfully
     environment:
       <<: *airflow-common-env
-      GOOGLE_APPLICATION_CREDENTIALS: /opt/airflow/keys/purwadika-key.json
+      GOOGLE_APPLICATION_CREDENTIALS: /opt/airflow/keys/purwadika-5a3c4e2b7b24.json
       AIRFLOW__LOGGING__REMOTE_LOGGING: 'False'
       AIRFLOW__LOGGING__BASE_LOG_FOLDER: /opt/airflow/logs
       AIRFLOW__LOGGING__DAG_PROCESSOR_MANAGER_LOG_LOCATION: /opt/airflow/logs/dag_processor_manager/dag_processor_manager.log
@@ -160,7 +177,7 @@ services:
         condition: service_completed_successfully
     environment:
       <<: *airflow-common-env
-      GOOGLE_APPLICATION_CREDENTIALS: /opt/airflow/keys/purwadika-key.json
+      GOOGLE_APPLICATION_CREDENTIALS: /opt/airflow/keys/purwadika-5a3c4e2b7b24.json
       AIRFLOW__LOGGING__REMOTE_LOGGING: 'False'
       AIRFLOW__LOGGING__BASE_LOG_FOLDER: /opt/airflow/logs
       AIRFLOW__LOGGING__DAG_PROCESSOR_MANAGER_LOG_LOCATION: /opt/airflow/logs/dag_processor_manager/dag_processor_manager.log
@@ -182,7 +199,7 @@ services:
       # Required to handle warm shutdown of the celery workers properly
       # See https://airflow.apache.org/docs/docker-stack/entrypoint.html#signal-propagation
       DUMB_INIT_SETSID: "0"
-      GOOGLE_APPLICATION_CREDENTIALS: /opt/airflow/keys/purwadika-key.json
+      GOOGLE_APPLICATION_CREDENTIALS: /opt/airflow/keys/purwadika-5a3c4e2b7b24.json
       AIRFLOW__LOGGING__REMOTE_LOGGING: 'False'
       AIRFLOW__LOGGING__BASE_LOG_FOLDER: /opt/airflow/logs
       AIRFLOW__LOGGING__DAG_PROCESSOR_MANAGER_LOG_LOCATION: /opt/airflow/logs/dag_processor_manager/dag_processor_manager.log
@@ -208,7 +225,7 @@ services:
         condition: service_completed_successfully
     environment:
       <<: *airflow-common-env
-      GOOGLE_APPLICATION_CREDENTIALS: /opt/airflow/keys/purwadika-key.json
+      GOOGLE_APPLICATION_CREDENTIALS: /opt/airflow/keys/purwadika-5a3c4e2b7b24.json
       AIRFLOW__LOGGING__REMOTE_LOGGING: 'False'
       AIRFLOW__LOGGING__BASE_LOG_FOLDER: /opt/airflow/logs
       AIRFLOW__LOGGING__DAG_PROCESSOR_MANAGER_LOG_LOCATION: /opt/airflow/logs/dag_processor_manager/dag_processor_manager.log
@@ -314,4 +331,5 @@ services:
         condition: service_completed_successfully
 
 volumes:
-  postgres-db-volume:
+  postgres-db-volume-ecommerce-metadata:
+  postgres-db-volume-ecommerce-data:

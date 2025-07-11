@@ -99,7 +99,7 @@ services:
       POSTGRES_PASSWORD: airflow
       POSTGRES_DB: airflow
     volumes:
-      - postgres-db-volume-ecommerce-metadata:/var/lib/postgresql/data
+      - postgres-db-volume-hospital-metadata:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "airflow"]
       interval: 10s
@@ -111,15 +111,15 @@ services:
     image: postgres:13
     container_name: postgres-data
     environment:
-      POSTGRES_USER: commerce-db
+      POSTGRES_USER: hospital-db
       POSTGRES_PASSWORD: hafizh
-      POSTGRES_DB: commerce-db
+      POSTGRES_DB: hospital-db
     ports:
       - "5433:5432"
     volumes:
-      - postgres-db-volume-ecommerce-data:/var/lib/postgresql/data
+      - postgres-db-volume-hospital-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "commerce-db"]
+      test: ["CMD", "pg_isready", "-U", "hospital-db"]
       interval: 10s
       retries: 5
       start_period: 5s
@@ -331,5 +331,5 @@ services:
         condition: service_completed_successfully
 
 volumes:
-  postgres-db-volume-ecommerce-metadata:
-  postgres-db-volume-ecommerce-data:
+  postgres-db-volume-hospital-metadata:
+  postgres-db-volume-hospital-data:

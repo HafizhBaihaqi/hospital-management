@@ -18,4 +18,4 @@ USER airflow
 
 RUN pip install --upgrade pip setuptools wheel
 
-RUN pip install dbt-core dbt-bigquery google-cloud-pubsub apache-beam[gcp]
+RUN pip install openpyxl sqlalchemy dbt-core dbt-bigquery

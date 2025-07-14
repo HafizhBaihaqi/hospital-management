@@ -9,20 +9,20 @@ file_path = '/opt/airflow/data/Hospital Management System.xlsx'
 # Dict for sheet name
 sheet_name = {
     # SourceName : output_name 
-    'Appointment':'appointments'
-    # 'Bed':'beds',
-    # 'BedRecords':'bed_records',
-    # 'Department':'departments',
-    # 'Doctor':'doctors',
-    # 'Helpers':'helpers',
-    # 'MedicalRecords':'medical_records',
-    # 'Nurse':'nurses',
-    # 'Patients':'patients',
-    # 'Room':'rooms',
-    # 'RoomRecords':'room_records',
-    # 'StaffShift':'staff_shifts',
-    # 'SurgeryRecord':'surgery_records',
-    # 'Ward':'wards'
+    'Appointment':'appointments',
+    'Bed':'beds',
+    'BedRecords':'bed_records',
+    'Department':'departments',
+    'Doctor':'doctors',
+    'Helpers':'helpers',
+    'MedicalRecord':'medical_records',
+    'Nurse':'nurses',
+    'Patients':'patients',
+    'Room':'rooms',
+    'RoomRecords':'room_records',
+    'StaffShift':'staff_shifts',
+    'SurgeryRecord':'surgery_records',
+    'Ward':'wards'
 }
 
 # Directory for schema
@@ -33,13 +33,15 @@ engine = create_engine('postgresql+psycopg2://hospital-db:hafizh@postgres-data:5
 
 def extractor_loader():
     for source, output in sheet_name.items():
+        print(f'Reading the file for {source}')
         df = pd.read_excel(file_path, sheet_name=source)
+        print(f'Saving {source} as {output}')
 
-        # Dynamically import schema module inline
         schema_path = os.path.join(schema_dir, f"{output}_schema.py")
         spec = importlib.util.spec_from_file_location(f"{output}_schema", schema_path)
         schema_module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(schema_module)
+        print(f'Load {output} schema')
 
         df.to_sql(
             name = output,

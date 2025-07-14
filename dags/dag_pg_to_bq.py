@@ -4,23 +4,23 @@ from datetime import datetime
 import sys
 
 sys.path.append('/opt/airflow/scripts')
-from hospital_data_pg import extractor_loader
+from hospital_data_pg_to_bq import load_pg_to_bq
 
 default_args = {
-    'start_date': datetime(2025, 7, 10)
+    'start_date': datetime(2025, 7, 11)
 }
 
 # buat alert
 
 with DAG(
-    'excel_to_postgres',
+    'postgres_to_bigquery',
     default_args=default_args,
-    schedule_interval='@hourly',
-    description='Extract all sheets from Hospital Management file to Postgres',
+    schedule_interval='@daily',
+    description='Extract all tables from Postgres to BigQuery',
     catchup=False,
 ) as dag:
 
     load_task = PythonOperator(
-        task_id='extractor_loader',
-        python_callable=extractor_loader
+        task_id='load_pg_to_bq',
+        python_callable=load_pg_to_bq
     )

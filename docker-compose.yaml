@@ -160,6 +160,14 @@ services:
       AIRFLOW__LOGGING__REMOTE_LOGGING: 'False'
       AIRFLOW__LOGGING__BASE_LOG_FOLDER: /opt/airflow/logs
       AIRFLOW__LOGGING__DAG_PROCESSOR_MANAGER_LOG_LOCATION: /opt/airflow/logs/dag_processor_manager/dag_processor_manager.log
+      AIRFLOW__EMAIL__EMAIL_BACKEND: airflow.utils.email.send_email_smtp
+      AIRFLOW__SMTP__SMTP_HOST: smtp.gmail.com
+      AIRFLOW__SMTP__START_TLS: False
+      AIRFLOW__SMTP__SMTP_SSL: False
+      AIRFLOW__SMTP__SMTP_USER: hapisbaihaqi@gmail.com
+      AIRFLOW__SMTP__SMTP_PASSWORD: ${AIRFLOW__SMTP__SMTP_PASSWORD}
+      AIRFLOW__SMTP__SMTP_PORT: 587
+      AIRFLOW__SMTP__SMTP_MAIL_FROM: hapisbaihaqi@gmail.com
 
   airflow-scheduler:
     <<: *airflow-common
@@ -181,6 +189,14 @@ services:
       AIRFLOW__LOGGING__REMOTE_LOGGING: 'False'
       AIRFLOW__LOGGING__BASE_LOG_FOLDER: /opt/airflow/logs
       AIRFLOW__LOGGING__DAG_PROCESSOR_MANAGER_LOG_LOCATION: /opt/airflow/logs/dag_processor_manager/dag_processor_manager.log
+      AIRFLOW__EMAIL__EMAIL_BACKEND: airflow.utils.email.send_email_smtp
+      AIRFLOW__SMTP__SMTP_HOST: smtp.gmail.com
+      AIRFLOW__SMTP__START_TLS: False
+      AIRFLOW__SMTP__SMTP_SSL: False
+      AIRFLOW__SMTP__SMTP_USER: hapisbaihaqi@gmail.com
+      AIRFLOW__SMTP__SMTP_PASSWORD: ${AIRFLOW__SMTP__SMTP_PASSWORD}
+      AIRFLOW__SMTP__SMTP_PORT: 587
+      AIRFLOW__SMTP__SMTP_MAIL_FROM: hapisbaihaqi@gmail.com
 
   airflow-worker:
     <<: *airflow-common
@@ -203,6 +219,14 @@ services:
       AIRFLOW__LOGGING__REMOTE_LOGGING: 'False'
       AIRFLOW__LOGGING__BASE_LOG_FOLDER: /opt/airflow/logs
       AIRFLOW__LOGGING__DAG_PROCESSOR_MANAGER_LOG_LOCATION: /opt/airflow/logs/dag_processor_manager/dag_processor_manager.log
+      AIRFLOW__EMAIL__EMAIL_BACKEND: airflow.utils.email.send_email_smtp
+      AIRFLOW__SMTP__SMTP_HOST: smtp.gmail.com
+      AIRFLOW__SMTP__START_TLS: False
+      AIRFLOW__SMTP__SMTP_SSL: False
+      AIRFLOW__SMTP__SMTP_USER: hapisbaihaqi@gmail.com
+      AIRFLOW__SMTP__SMTP_PASSWORD: ${AIRFLOW__SMTP__SMTP_PASSWORD}
+      AIRFLOW__SMTP__SMTP_PORT: 587
+      AIRFLOW__SMTP__SMTP_MAIL_FROM: hapisbaihaqi@gmail.com
     restart: always
     depends_on:
       <<: *airflow-common-depends-on
@@ -229,6 +253,14 @@ services:
       AIRFLOW__LOGGING__REMOTE_LOGGING: 'False'
       AIRFLOW__LOGGING__BASE_LOG_FOLDER: /opt/airflow/logs
       AIRFLOW__LOGGING__DAG_PROCESSOR_MANAGER_LOG_LOCATION: /opt/airflow/logs/dag_processor_manager/dag_processor_manager.log
+      AIRFLOW__EMAIL__EMAIL_BACKEND: airflow.utils.email.send_email_smtp
+      AIRFLOW__SMTP__SMTP_HOST: smtp.gmail.com
+      AIRFLOW__SMTP__START_TLS: False
+      AIRFLOW__SMTP__SMTP_SSL: False
+      AIRFLOW__SMTP__SMTP_USER: hapisbaihaqi@gmail.com
+      AIRFLOW__SMTP__SMTP_PASSWORD: ${AIRFLOW__SMTP__SMTP_PASSWORD}
+      AIRFLOW__SMTP__SMTP_PORT: 587
+      AIRFLOW__SMTP__SMTP_MAIL_FROM: hapisbaihaqi@gmail.com
 
 
   airflow-init:

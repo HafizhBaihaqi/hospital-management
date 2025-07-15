@@ -8,8 +8,8 @@ from hospital_data_pg_to_bq import load_pg_to_bq
 
 default_args = {
     'start_date': datetime(2025, 7, 11),
-    'email': ['hapisbaihaqi@gmail.com'],              
-    'email_on_failure': True,  
+    # 'email': ['hapisbaihaqi@gmail.com'],              
+    # 'email_on_failure': True,  
 }
 
 # buat alert

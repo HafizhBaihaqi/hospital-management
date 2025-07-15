@@ -1,0 +1,19 @@
+version: 2
+sources:
+  - name: hospital
+    schema: jcdeol3_final_project_hafizh
+    tables:
+      - name: src_appointments
+      - name: src_bed_records
+      - name: src_beds
+      - name: src_departments
+      - name: src_doctors
+      - name: src_helpers
+      - name: src_medical_records
+      - name: src_nurses
+      - name: src_patients
+      - name: src_room_records
+      - name: src_rooms
+      - name: src_staff_shifts
+      - name: src_surgery_records
+      - name: src_wards

@@ -18,4 +18,4 @@ USER airflow
 
 RUN pip install --upgrade pip setuptools wheel
 
-RUN pip install openpyxl sqlalchemy dbt-core dbt-bigquery
+RUN pip install openpyxl sqlalchemy dbt-core dbt-bigquery dbt-depsxx

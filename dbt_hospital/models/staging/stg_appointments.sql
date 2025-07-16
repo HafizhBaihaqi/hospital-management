@@ -2,11 +2,11 @@
     config(
         materialized='incremental',
         partition_by={
-            'field': 'lpep_pickup_datetime',
-            'data_type': 'timestamp',
+            'field': 'appointment_date',
+            'data_type': 'date',
             'granularity': 'day'
         },
-        unique_key='id',
+        unique_key='appointment_id',
         incremental_strategy = 'insert_overwrite'
     )
 }}
@@ -26,13 +26,23 @@ with appointments as (
         {{ source('hospital', 'src_appointments') }}
     where
         true
-        -- incremental filter
-        {% if is_incremental() %}
-            {%- call statement('latest', fetch_result=True) -%}
-                select max(appointment_date) from {{ this }}
-            {%- endcall -%}
-            {%- set latest = load_result('latest') -%}
-            and date(appointment_date) >= date('{{ latest["data"][0][0] }}')
+        -- incremental filter and backfill
+        {% if is_incremental() -%}
+            {%- set backfill = var("backfill", "") %}
+            {%- set date_start = var("date_start", "") %}
+            {%- set date_until = var("date_until", "") %}
+            {% if backfill %}
+                and date(appointment_date) >= '{{ date_start }}'
+                and date(appointment_date) <= '{{ date_until }}'
+            {% else -%}
+                {% if not latest -%}
+                    {%- call statement('latest', fetch_result=True) -%}
+                        select max(appointment_date) from {{ this }}
+                    {%- endcall -%}
+                {% endif %}
+                {%- set latest = load_result('latest') -%}
+                and  date(appointment_date) >= date('{{ latest["data"][0][0] }}')
+            {% endif %}
         {% endif %}
 )
 select

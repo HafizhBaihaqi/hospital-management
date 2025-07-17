@@ -1,0 +1,10 @@
+version: 2
+sources:
+  - name: hospital
+    schema: jcdeol3_final_project_hafizh
+    tables:
+      - name: stg_appointments
+      - name: stg_bed_records
+      - name: stg_surgery_records
+      - name: stg_medical_records
+      - name: stg_room_records

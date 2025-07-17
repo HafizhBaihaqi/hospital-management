@@ -8,8 +8,8 @@ from hospital_data_pg import extractor_loader
 
 default_args = {
     'start_date': datetime(2025, 7, 10),
-    # 'email': ['hapisbaihaqi@gmail.com'],              
-    # 'email_on_failure': True,  
+    'email': ['hapisbaihaqi@gmail.com'],              
+    'email_on_failure': True,  
 }
 
 # buat alert

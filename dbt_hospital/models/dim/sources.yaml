@@ -1,0 +1,14 @@
+version: 2
+sources:
+  - name: hospital
+    schema: jcdeol3_final_project_hafizh
+    tables:
+      - name: stg_beds
+      - name: stg_departments
+      - name: stg_doctors
+      - name: stg_helpers
+      - name: stg_nurses
+      - name: stg_patients
+      - name: stg_rooms
+      - name: stg_staff_shifts
+      - name: stg_wards

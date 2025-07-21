@@ -30,27 +30,12 @@ graph TD
     dbt_modeling --> models
     models --> fact
     fact --> sources.yaml
-    fact --> fact_appointments.sql
-    fact --> fact_bed_records.sql
-    fact --> fact_medical_records.sql
-    fact --> fact_room_records.sql
-    fact --> fact_surgery_records.sql
+    fact --> fact...
     models --> dim
     dim --> sources.yaml
-    dim --> dim_beds.sql
-    dim --> dim_departments.sql
-    dim --> dim_doctors.sql
-    dim --> dim_helpers.sql
-    dim --> dim_nurses.sql
-    dim --> dim_patients.sql
-    dim --> dim_rooms.sql
-    dim --> dim_staff_shifts.sql
-    dim --> dim_wards.sql
+    dim --> dim...
     models --> mart
-    mart --> mart_appointments_count.sql
-    mart --> mart_appointments_rate.sql
-    mart --> mart_bed_avg_occupancy_rate.sql
-    mart --> mart_surgery_count.sql
+    mart --> mart...
     scripts --> hospital_schema
     hospital_schema --> ...schema.py
     scripts --> hospital_data_pg_to_bq.py

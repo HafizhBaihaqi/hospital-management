@@ -12,6 +12,8 @@ Stack used for this project are:
 6. dbt -> for data modeling and transformation
 7. Looker Studio -> for visualization and analysis
 
+![Hospital ELT Architecture](images/Hospital Management ELT.jpg)
+
 ## Objective
 - Build a complete end to end ELT pipeline from raw data ingestion to ready for analysis
 - Orchestrate pipeline processes using Airflow

@@ -115,13 +115,13 @@ root
 1. Open DBeaver (or any other SQL database management tool)
 2. In the tool bar, choose Database -> New Database Connection
 3. In the connection menu, choose PostgreSQL as the database then click next
-4. Fill in:
--- Host: localhost
--- Database: hospital-db
--- Port: 5433
--- Username: hospital-db
--- Password: hafizh
-    Then test the connection. If connected, press OK
+4. Fill in:\
+-- Host: localhost\
+-- Database: hospital-db\
+-- Port: 5433\
+-- Username: hospital-db\
+-- Password: hafizh\
+Then test the connection. If connected, press OK
 
 ## How to Execute the Transformation using dbt
 1. Execute `dag_dbt-dim_beds` in Airflow to create a fact table containing beds data. 

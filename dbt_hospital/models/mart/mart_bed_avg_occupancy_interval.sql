@@ -29,3 +29,5 @@ select
     avg(occupancy_interval) as avg_occupancy_interval
 from
     bed_records
+group by
+    1

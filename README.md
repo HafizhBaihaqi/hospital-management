@@ -124,20 +124,27 @@ root
 Then test the connection. If connected, press OK
 
 ## How to Execute the Transformation using dbt
-1. Execute `dag_dbt-dim_beds` in Airflow to create a fact table containing beds data. 
-2. Execute `dag_dbt-dim_departments` in Airflow to create a fact table containing departments data. 
-3. Execute `dag_dbt-dim_doctors` in Airflow to create a fact table containing doctors data. 
-4. Execute `dag_dbt-dim_nurses` in Airflow to create a fact table containing nurses data. 
-5. Execute `dag_dbt-dim_patients` in Airflow to create a fact table containing patients data. 
-6. Execute `dag_dbt-dim_rooms` in Airflow to create a fact table containing rooms data. 
-7. Execute `dag_dbt-dim_staff_shifts` in Airflow to create a fact table containing staff shifts data. 
-8. Execute `dag_dbt-dim_wards` in Airflow to create a fact table containing wards data. 
+1. Execute `dag_dbt-dim_beds` in Airflow to create a dim table containing beds data. 
+2. Execute `dag_dbt-dim_departments` in Airflow to create a dim table containing departments data. 
+3. Execute `dag_dbt-dim_doctors` in Airflow to create a dim table containing doctors data. 
+4. Execute `dag_dbt-dim_nurses` in Airflow to create a dim table containing nurses data. 
+5. Execute `dag_dbt-dim_patients` in Airflow to create a dim table containing patients data. 
+6. Execute `dag_dbt-dim_rooms` in Airflow to create a dim table containing rooms data. 
+7. Execute `dag_dbt-dim_staff_shifts` in Airflow to create a dim table containing staff shifts data. 
+8. Execute `dag_dbt-dim_wards` in Airflow to create a dim table containing wards data. 
 10. Execute `dag_dbt-fact_appointments` in Airflow to create a fact table containing appointments data. For full-refresh, execute `dag_dbt-fact_appointments-full_refresh`. For backfill, execute `dbt-fact_appointments-backfill`
 11. Execute `dag_dbt-bed_records` in Airflow to create a fact table containing bed records data. For full-refresh, execute `dag_dbt-bed_records-full_refresh`. For backfill, execute `dbt-bed_records-backfill`
 12. Execute `dag_dbt-medical_records` in Airflow to create a fact table containing medical records data. For full-refresh, execute `dag_dbt-medical_records-full_refresh`. For backfill, execute `dbt-medical_records-backfill`
 13. Execute `dag_dbt-room_records` in Airflow to create a fact table containing room records data. For full-refresh, execute `dag_dbt-room_records-full_refresh`. For backfill, execute `dbt-room_records-backfill`
 14. Execute `dag_dbt-surgery_records` in Airflow to create a fact table containing surgery records data. For full-refresh, execute `dag_dbt-surgery_records-full_refresh`. For backfill, execute `dbt-surgery_records-backfill`
+15. Execute `dag_dbt-mart_appointments_count` in Airflow to create a mart table containing appointments metric.
+16. Execute `dag_dbt-mart_appointments_rate` in Airflow to create a mart table containing appointments metric.
+17. Execute `dag_dbt-mart_bed_avg_occupancy_interval` in Airflow to create a mart table containing average bed occupancy interval metric.
+18. Execute `dag_dbt-mart_surgery_count` in Airflow to create a mart table containing surgery metric.
 
-Links:
+## How to access Looker Studio
+Go to this link for the visualization analysis: [Looker Studio](https://lookerstudio.google.com/u/0/reporting/b7398684-0454-47cd-ac18-b52ab59a0ccf/page/jJkRF) 
+
+Other links:
 - Kaggle dataset: https://www.kaggle.com/datasets/mshamoonbutt/hospital-management-system/data?select=Hospital+Management+System.xlsx
 - BigQuery Dataset: purwadika.jcdeol3_final_project_hafizh

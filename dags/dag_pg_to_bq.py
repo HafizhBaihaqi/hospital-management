@@ -12,8 +12,6 @@ default_args = {
     'email_on_failure': True,  
 }
 
-# buat alert
-
 with DAG(
     'postgres_to_bigquery',
     default_args=default_args,

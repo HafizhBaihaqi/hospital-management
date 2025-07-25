@@ -73,6 +73,7 @@ x-airflow-common:
     # If you want to use it, outcomment it and replace airflow.cfg with the name of your config file
     # AIRFLOW_CONFIG: '/opt/airflow/config/airflow.cfg'
     
+  # Volumes to store directory
   volumes:
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
@@ -92,6 +93,7 @@ x-airflow-common:
       condition: service_healthy
 
 services:
+  # Postgres for metadata
   postgres-metadata:
     image: postgres:13
     environment:
@@ -107,6 +109,7 @@ services:
       start_period: 5s
     restart: always
 
+  # Postgres for hospital data
   postgres-data:
     image: postgres:13
     container_name: postgres-data
@@ -154,6 +157,7 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+    # Environment to set SA and SMPT email (is set to every airflow services)
     environment:
       <<: *airflow-common-env
       GOOGLE_APPLICATION_CREDENTIALS: /opt/airflow/keys/purwadika-5a3c4e2b7b24.json
@@ -366,6 +370,7 @@ volumes:
   postgres-db-volume-hospital-metadata:
   postgres-db-volume-hospital-data:
 
+# This is incase for network issues
 networks:
   default:
     driver: bridge

@@ -12,8 +12,6 @@ default_args = {
     'email_on_failure': True,  
 }
 
-# buat alert
-
 with DAG(
     'excel_to_postgres',
     default_args=default_args,
